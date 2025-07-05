@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Game.Code.Logic.Card
@@ -71,7 +72,7 @@ namespace Game.Code.Logic.Card
             if (_isOnTable && _parentCardBend != null)
             {
                 var dropZone = FindFirstObjectByType<CardDropZone>();
-                if (dropZone != null)
+                if (dropZone != null && UseCard())
                 {
                     var wasDestroyed = dropZone.OnCardReleased(this);
                     if (wasDestroyed)
@@ -118,6 +119,11 @@ namespace Game.Code.Logic.Card
                 _isOnTable = false;
                 _returningToStart = false; // cardbend should hadle positioning instead of this script
             }
+        }
+
+        protected virtual bool UseCard()
+        {
+            return false;
         }
     }
 }

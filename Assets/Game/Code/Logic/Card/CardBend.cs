@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Game.Code.Infrastructure;
 
 namespace Game.Code.Logic.Card
 {
@@ -15,9 +16,15 @@ namespace Game.Code.Logic.Card
         [SerializeField] private KeyCode addCardKey = KeyCode.Space;
 
         private readonly List<GameObject> _activeCards = new();
+        private Gameplay _gameplay;
         private bool _isArranging;
-        
+
         public int CardsCountToFull => 6 - _activeCards.Count;
+
+        public void Construct(Gameplay gameplay)
+        {
+            _gameplay = gameplay;
+        }
 
         private void Awake()
         {
@@ -85,6 +92,7 @@ namespace Game.Code.Logic.Card
             for (var i = 0; i < newCards.Count; i++)
             {
                 var newCard = Instantiate(newCards[i].gameObject, transform);
+                newCard.GetComponent<CardEntity>().Construct(_gameplay);
                 newCard.name = $"Card_{i + 1}";
 
                 SetupCard(newCard, i);

@@ -148,6 +148,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5f06b1954924c9e8efd8cb0f42096e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardType: 0
+  cardValueBase: 0
+  cardValueAdditional: 0
+  staminaCost: 1
 --- !u!1 &8367619111628839483
 GameObject:
   m_ObjectHideFlags: 0

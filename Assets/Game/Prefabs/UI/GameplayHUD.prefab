@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb50ba728f87a9468c16059fad82eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endTurnButton: {fileID: 4549977857599677971}
   staminaLogos:
   - {fileID: 8982428285077003030}
   - {fileID: 3199520809030337129}

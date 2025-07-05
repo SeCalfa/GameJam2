@@ -6,6 +6,7 @@ namespace Game.Code.Logic.UI.Gameplay
 {
     public class GameplayHud : MonoBehaviour
     {
+        [SerializeField] private Button endTurnButton;
         [SerializeField] private Image[] staminaLogos;
 
         public event Action OnTurnEnd;

@@ -18,7 +18,7 @@ namespace Game.Code.Infrastructure
         private readonly RoundData _round3;
 
         private RoundData _currentRound;
-        private int _currentStamina;
+        public int CurrentStamina { get; set; }
         
         private List<CardEntity> _avilableCards = new();
         private List<CardEntity> _usedCards = new();
@@ -64,14 +64,20 @@ namespace Game.Code.Infrastructure
         {
             var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
 
-            _currentStamina += staminaToAdd;
+            CurrentStamina += staminaToAdd;
 
             gameplayHud.ToggleStamina(true);
-            gameplayHud.ShowStamina(_currentStamina);
+            gameplayHud.ShowStamina(CurrentStamina);
             
             var cardBend = _container.GetGameObjectByName<CardBend>(Constants.CardHand);
             var newRandomCards = TakeRandomCards(cardBend.CardsCountToFull);
             cardBend.AddCards(newRandomCards);
+        }
+
+        public void UpdateStamina()
+        {
+            var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
+            gameplayHud.ShowStamina(CurrentStamina);
         }
 
         private void TurnEnd()
@@ -83,6 +89,7 @@ namespace Game.Code.Infrastructure
         private void SpawnCardHand()
         {
             var cardBend = _container.CreateGameObject<CardBend>(Constants.CardHand, _prefabsList.GetCardHand);
+            cardBend.Construct(this);
             _avilableCards = new List<CardEntity>(_currentRound.GetCards);
 
             var newRandomCards = TakeRandomCards(cardBend.CardsCountToFull);
