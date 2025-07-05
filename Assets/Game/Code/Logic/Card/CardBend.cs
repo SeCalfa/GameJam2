@@ -24,14 +24,14 @@ namespace Game.Code.Logic.Card
 
         protected override void Awake()
         {
-            Debug.Log("CardBend: Awake called");
+           // // Debug.Log("CardBend: Awake called");
             base.Awake();
             InitializeCentralAnchor();
         }
 
         private void Start()
         {
-            Debug.Log("CardBend: Start called");
+          //  // Debug.Log("CardBend: Start called");
             SpawnInitialCards();
         }
 
@@ -46,7 +46,7 @@ namespace Game.Code.Logic.Card
             
             if (Input.GetKeyDown(addCardKey))
             {
-                Debug.Log("CardBend: Add card key pressed");
+              //  // Debug.Log("CardBend: Add card key pressed");
                 AddCard();
             }
         }
@@ -55,7 +55,7 @@ namespace Game.Code.Logic.Card
         {
             if (centralAnchor == null)
             {
-                Debug.Log("CardBend: Creating central anchor");
+               // // Debug.Log("CardBend: Creating central anchor");
                 GameObject anchorObject = new GameObject("CentralAnchor");
                 anchorObject.transform.SetParent(transform);
                 anchorObject.transform.localPosition = new Vector3(0, -3, 0);
@@ -63,32 +63,32 @@ namespace Game.Code.Logic.Card
             }
             else
             {
-                Debug.Log("CardBend: Central anchor already exists");
+                // // // Debug.Log("CardBend: Central anchor already exists");
             }
         }
 
         private void SpawnInitialCards()
         {
-            Debug.Log("CardBend: SpawnInitialCards called");
+           // // // Debug.Log("CardBend: SpawnInitialCards called");
 
             if (cardPrefab == null)
             {
-                Debug.LogError("CardBend: Card prefab is not assigned! Please assign a card prefab in the inspector.");
+                // // Debug.LogError("CardBend: Card prefab is not assigned! Please assign a card prefab in the inspector.");
                 return;
             }
 
-            Debug.Log($"CardBend: Using prefab: {cardPrefab.name}");
+           // // // Debug.Log($"CardBend: Using prefab: {cardPrefab.name}");
 
             for (int i = 0; i < 6; i++)
             {
-                Debug.Log($"CardBend: Creating card {i + 1}");
+              //  // Debug.Log($"CardBend: Creating card {i + 1}");
                 GameObject newCard = Instantiate(cardPrefab, transform);
                 newCard.name = $"Card_{i + 1}";
 
                 SetupCard(newCard, i);
             }
 
-            Debug.Log($"CardBend: Total cards spawned: {activeCards.Count}");
+           // // Debug.Log($"CardBend: Total cards spawned: {activeCards.Count}");
             isArranging = true;
         }
 
@@ -98,12 +98,12 @@ namespace Game.Code.Logic.Card
 
             if (cardMovement == null)
             {
-                Debug.Log($"CardBend: Adding CardMovement to card {index + 1}");
+               // // Debug.Log($"CardBend: Adding CardMovement to card {index + 1}");
                 cardMovement = newCard.AddComponent<CardMovement>();
             }
 
             activeCards.Add(newCard);
-            Debug.Log($"CardBend: Card {index + 1} added to activeCards list");
+            //// Debug.Log($"CardBend: Card {index + 1} added to activeCards list");
         }
 
         public void AddCard(GameObject card = null)
@@ -121,6 +121,7 @@ namespace Game.Code.Logic.Card
                 if (cardMovement != null)
                 {
                     // Reset any "on table" status
+                    cardMovement.SetStartPosition(centralAnchor.position);
                 }
             }
             else if (cardPrefab != null)
@@ -130,7 +131,7 @@ namespace Game.Code.Logic.Card
             }
             else
             {
-                Debug.LogError("CardBend: No card prefab assigned! Cannot add new card.");
+                //// Debug.LogError("CardBend: No card prefab assigned! Cannot add new card.");
                 return;
             }
 
@@ -140,7 +141,7 @@ namespace Game.Code.Logic.Card
                 cardComponent = newCard.AddComponent<CardMovement>();
 
             activeCards.Add(newCard);
-            Debug.Log($"CardBend: Card added to hand. Total cards: {activeCards.Count}");
+            //// Debug.Log($"CardBend: Card added to hand. Total cards: {activeCards.Count}");
             isArranging = true;
         }
 
@@ -168,12 +169,12 @@ namespace Game.Code.Logic.Card
             int cardCount = activeCards.Count;
             if (cardCount == 0)
             {
-                Debug.Log("CardBend: No cards to arrange");
+                //// Debug.Log("CardBend: No cards to arrange");
                 isArranging = false;
                 return;
             }
 
-            Debug.Log($"CardBend: Arranging {cardCount} cards");
+            //// Debug.Log($"CardBend: Arranging {cardCount} cards");
 
             float totalWidth = (cardCount - 1) * cardSpacing;
             float startX = -totalWidth / 2f;
@@ -237,16 +238,16 @@ namespace Game.Code.Logic.Card
 
         public void OnCardDestroyed(GameObject destroyedCard)
         {
-            Debug.Log($"CardBend: Card destroyed - {destroyedCard.name}");
+            // Debug.Log($"CardBend: Card destroyed - {destroyedCard.name}");
             
             if (activeCards.Contains(destroyedCard))
             {
                 activeCards.Remove(destroyedCard);
-                Debug.Log($"CardBend: Removed card from list. Remaining cards: {activeCards.Count}");
+                // Debug.Log($"CardBend: Removed card from list. Remaining cards: {activeCards.Count}");
                 
                 if (activeCards.Count < 6)
                 {
-                    Debug.Log("CardBend: Starting rearrangement");
+                    // Debug.Log("CardBend: Starting rearrangement");
                     isArranging = true;
                 }
             }
@@ -254,19 +255,19 @@ namespace Game.Code.Logic.Card
 
         public void OnCardPulledOut(GameObject card)
         {
-            Debug.Log($"CardBend: Card pulled out - {card.name}");
+            // Debug.Log($"CardBend: Card pulled out - {card.name}");
             
             if (activeCards.Contains(card))
             {
                 activeCards.Remove(card);
-                Debug.Log($"CardBend: Removed card from hand. Remaining cards: {activeCards.Count}");
+                // Debug.Log($"CardBend: Removed card from hand. Remaining cards: {activeCards.Count}");
                 isArranging = true;
             }
         }
 
         public void ReturnCardToHand(GameObject card)
         {
-            Debug.Log($"CardBend: Card returned to hand - {card.name}");
+            // Debug.Log($"CardBend: Card returned to hand - {card.name}");
             
             if (!activeCards.Contains(card) && activeCards.Count < 6)
             {
@@ -275,18 +276,18 @@ namespace Game.Code.Logic.Card
                 
                 // Add to activeCards list
                 activeCards.Add(card);
-                Debug.Log($"CardBend: Card added back to hand. Total cards: {activeCards.Count}");
+                // Debug.Log($"CardBend: Card added back to hand. Total cards: {activeCards.Count}");
                 
                 // Trigger rearrangement
                 isArranging = true;
             }
             else if (activeCards.Contains(card))
             {
-                Debug.Log($"CardBend: Card {card.name} is already in hand");
+                // Debug.Log($"CardBend: Card {card.name} is already in hand");
             }
             else
             {
-                Debug.Log($"CardBend: Cannot return card - hand is full ({activeCards.Count}/6)");
+                // Debug.Log($"CardBend: Cannot return card - hand is full ({activeCards.Count}/6)");
             }
         }
 
