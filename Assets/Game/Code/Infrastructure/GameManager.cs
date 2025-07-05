@@ -7,6 +7,8 @@ namespace Game.Code.Infrastructure
 {
     public class GameManager : MonoBehaviour
     {
+        [SerializeField] private Transform enemyPoint;
+        [Space]
         [SerializeField] private PrefabsList prefabsList;
         [Space]
         [SerializeField] private RoundData round1;
@@ -42,17 +44,10 @@ namespace Game.Code.Infrastructure
 
         private void Init()
         {
-            _gameplay = new Gameplay(round1, round2, round3);
             _container = new Container();
-            
+            _gameplay = new Gameplay(_container, prefabsList, enemyPoint, round1, round2, round3);
+
             _gameplay.RunRound(Round.Round1);
-            
-            SpawnGameplayHUD();
-        }
-        
-        private void SpawnGameplayHUD()
-        {
-            _container.CreateGameObject(Constants.GameplayHUD, prefabsList.GetGameplayHUD);
         }
     }
 }

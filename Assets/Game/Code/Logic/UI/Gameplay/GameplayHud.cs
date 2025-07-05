@@ -1,16 +1,29 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
-public class GameplayHud : MonoBehaviour
+namespace Game.Code.Logic.UI.Gameplay
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class GameplayHud : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private TextMeshProUGUI staminaText;
+        [Space]
+        [SerializeField] private Image[] staminaLogos;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void ShowStamina(int stamina)
+        {
+            for (var s = 0; s < staminaLogos.Length - stamina; s++)
+            {
+                staminaLogos[s + stamina].enabled = false;
+            }
+        }
+
+        public void ResetStamina()
+        {
+            foreach (var stamina in staminaLogos)
+            {
+                stamina.enabled = true;
+            }
+        }
     }
 }

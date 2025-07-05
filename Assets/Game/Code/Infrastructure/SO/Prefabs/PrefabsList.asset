@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: PrefabsList
   m_EditorClassIdentifier: 
   gameplayHUD: {fileID: 449464487600677611, guid: b9e7ed363285ee746a65dfee5a688c24, type: 3}
+  enemy: {fileID: 386176746964504505, guid: 5300b7fa053a91540bc094e6d330f9da, type: 3}

@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 494f998dc92207a47a119988593043f9, type: 3}
   m_Name: Round1
   m_EditorClassIdentifier: 
+  enemy: {fileID: 386176746964504505, guid: 5300b7fa053a91540bc094e6d330f9da, type: 3}
+  cards: []
