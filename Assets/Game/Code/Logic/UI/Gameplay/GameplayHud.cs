@@ -1,13 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 namespace Game.Code.Logic.UI.Gameplay
 {
     public class GameplayHud : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI staminaText;
-        [Space]
         [SerializeField] private Image[] staminaLogos;
 
         public void ShowStamina(int stamina)

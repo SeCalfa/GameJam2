@@ -4,5 +4,6 @@ namespace Game.Code
     {
         public const string GameplayHUD = "GameplayHUD";
         public const string Enemy = "Enemy";
+        public const string CardHand = "CardHand";
     }
 }

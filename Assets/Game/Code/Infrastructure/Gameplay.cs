@@ -45,8 +45,8 @@ namespace Game.Code.Infrastructure
             var enemy = _container.CreateGameObject(Constants.Enemy, _currentRound.GetEnemy);
             enemy.transform.position = _enemyPoint.position;
             
-            // Spawn card table
-            // ---
+            // Spawn card hand
+            SpawnCardHand();
 
             // Spawn gameplay HUD
             SpawnGameplayHUD();
@@ -62,15 +62,13 @@ namespace Game.Code.Infrastructure
             var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
             gameplayHud.ShowStamina(_currentStamina);
         }
-        
+
         public void TurnEnd()
         {
             
         }
-        
-        private void SpawnGameplayHUD()
-        {
-            _container.CreateGameObject(Constants.GameplayHUD, _prefabsList.GetGameplayHUD);
-        }
+
+        private void SpawnCardHand() => _container.CreateGameObject(Constants.CardHand, _prefabsList.GetCardHand);
+        private void SpawnGameplayHUD() => _container.CreateGameObject(Constants.GameplayHUD, _prefabsList.GetGameplayHUD);
     }
 }

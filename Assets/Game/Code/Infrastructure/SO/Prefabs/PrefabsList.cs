@@ -6,7 +6,9 @@ namespace Game.Code.Infrastructure.SO.Prefabs
     public class PrefabsList : ScriptableObject
     {
         [SerializeField] private GameObject gameplayHUD;
+        [SerializeField] private GameObject cardHand;
 
         public GameObject GetGameplayHUD => gameplayHUD;
+        public GameObject GetCardHand => cardHand;
     }
 }
