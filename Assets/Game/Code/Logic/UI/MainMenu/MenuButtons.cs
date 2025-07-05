@@ -8,14 +8,15 @@ namespace Game.Code.Logic.UI.MainMenu
 
         public void OnStartButtonClicked()
         {
-            Debug.Log("Start button clicked");
             if (sceneTransition == null)
             {
+                Debug.Log("No ChangeScene component assigned, searching in scene");
                 sceneTransition = FindFirstObjectByType<ChangeScene>();
             }
             
             if (sceneTransition != null)
             {
+                Debug.Log("Start button clicked, transitioning to Game scene");
                 sceneTransition.TransitionToScene("Game");
             }
             else

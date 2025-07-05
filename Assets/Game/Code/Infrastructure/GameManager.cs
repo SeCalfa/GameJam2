@@ -17,6 +17,7 @@ namespace Game.Code.Infrastructure
 
         private Gameplay _gameplay;
         private Container _container;
+        private bool _isFirstInit = true;
         
         public static GameManager Instance { get; private set; }
         public PrefabsList PrefabsList => prefabsList;
@@ -34,8 +35,33 @@ namespace Game.Code.Infrastructure
             Init();
             
             DontDestroyOnLoad(gameObject);
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
         }
-        
+
+        private void OnDestroy()
+        {
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
+        {
+            if (scene.name == "Game" && !_isFirstInit)
+            {
+                if (enemyPoint == null)
+                {
+                    GameObject enemyPointObj = GameObject.Find("EnemyPoint");
+                    enemyPoint = enemyPointObj.transform;
+                }
+                
+                Init();
+            }
+            
+            if (_isFirstInit)
+            {
+                _isFirstInit = false;
+            }
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -46,6 +72,12 @@ namespace Game.Code.Infrastructure
             if (Input.GetKeyDown(KeyCode.R))
             {
                 _gameplay.TurnStart(1);
+            }
+            
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                ChangeScene changeScene = FindFirstObjectByType<ChangeScene>();
+                changeScene.TransitionToScene("EndGame");
             }
         }
 
