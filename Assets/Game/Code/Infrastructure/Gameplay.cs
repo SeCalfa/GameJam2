@@ -68,6 +68,10 @@ namespace Game.Code.Infrastructure
 
             gameplayHud.ToggleStamina(true);
             gameplayHud.ShowStamina(_currentStamina);
+            
+            var cardBend = _container.GetGameObjectByName<CardBend>(Constants.CardHand);
+            var newRandomCards = TakeRandomCards(cardBend.CardsCountToFull);
+            cardBend.AddCards(newRandomCards);
         }
 
         private void TurnEnd()
@@ -79,7 +83,7 @@ namespace Game.Code.Infrastructure
         private void SpawnCardHand()
         {
             var cardBend = _container.CreateGameObject<CardBend>(Constants.CardHand, _prefabsList.GetCardHand);
-            _avilableCards = _currentRound.GetCards;
+            _avilableCards = new List<CardEntity>(_currentRound.GetCards);
 
             var newRandomCards = TakeRandomCards(cardBend.CardsCountToFull);
             cardBend.AddCards(newRandomCards);

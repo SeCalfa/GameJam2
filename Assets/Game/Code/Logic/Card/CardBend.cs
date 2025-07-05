@@ -22,7 +22,7 @@ namespace Game.Code.Logic.Card
         private void Awake()
         {
             InitializeCentralAnchor();
-            SpawnInitialCards();
+            // SpawnInitialCards();
             CreateDropZone();
         }
 
@@ -82,10 +82,15 @@ namespace Game.Code.Logic.Card
 
         public void AddCards(List<CardEntity> newCards)
         {
-            foreach (var card in newCards)
+            for (var i = 0; i < newCards.Count; i++)
             {
-                AddCard(card.gameObject);
+                var newCard = Instantiate(newCards[i].gameObject, transform);
+                newCard.name = $"Card_{i + 1}";
+
+                SetupCard(newCard, i);
             }
+            
+            _isArranging = true;
         }
 
         private void AddCard(GameObject card = null)
