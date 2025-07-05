@@ -20,8 +20,7 @@ namespace Game.Code.Infrastructure
         private RoundData _currentRound;
         public int CurrentStamina { get; set; }
         
-        private List<CardEntity> _avilableCards = new();
-        private List<CardEntity> _usedCards = new();
+        private List<CardEntity> _availableCards = new();
 
         public Gameplay(
             Container container,
@@ -74,23 +73,23 @@ namespace Game.Code.Infrastructure
             cardBend.AddCards(newRandomCards);
         }
 
-        public void UpdateStamina()
-        {
-            var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
-            gameplayHud.ShowStamina(CurrentStamina);
-        }
-
         private void TurnEnd()
         {
             var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
             gameplayHud.ToggleStamina(false);
         }
 
+        public void UpdateStamina()
+        {
+            var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
+            gameplayHud.ShowStamina(CurrentStamina);
+        }
+
         private void SpawnCardHand()
         {
             var cardBend = _container.CreateGameObject<CardBend>(Constants.CardHand, _prefabsList.GetCardHand);
             cardBend.Construct(this);
-            _avilableCards = new List<CardEntity>(_currentRound.GetCards);
+            _availableCards = new List<CardEntity>(_currentRound.GetCards);
 
             var newRandomCards = TakeRandomCards(cardBend.CardsCountToFull);
             cardBend.AddCards(newRandomCards);
@@ -108,16 +107,15 @@ namespace Game.Code.Infrastructure
 
             for (var i = 0; i < count; i++)
             {
-                var randomCardIndex = Random.Range(0, _avilableCards.Count);
-                var randomCard = _avilableCards[randomCardIndex];
+                var randomCardIndex = Random.Range(0, _availableCards.Count);
+                var randomCard = _availableCards[randomCardIndex];
                 
                 newCards.Add(randomCard);
-                _avilableCards.RemoveAt(randomCardIndex);
+                _availableCards.RemoveAt(randomCardIndex);
 
-                if (_avilableCards.Count == 0)
+                if (_availableCards.Count == 0)
                 {
-                    _avilableCards = _usedCards;
-                    break;
+                    _availableCards = new List<CardEntity>(_currentRound.GetCards);
                 }
             }
             

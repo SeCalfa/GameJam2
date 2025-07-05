@@ -38,6 +38,7 @@ namespace Game.Code.Logic.Card
             {
                 _gameplay.CurrentStamina -= staminaCost;
                 _gameplay.UpdateStamina();
+                
                 return true;
             }
 
