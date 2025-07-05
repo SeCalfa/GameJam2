@@ -7,12 +7,11 @@ namespace Game.Code.Logic.Card
         private Vector2 _startPosition;
         private Quaternion _startRotation;
         private bool _returningToStart;
-        private bool _isOnTable = false;
-        private bool _isDragging = false;
+        private bool _isOnTable;
+        private bool _isDragging;
         private CardBend _parentCardBend;
 
         private const float ReturnSpeed = 10f;
-        private const float TableThreshold = 2f; 
 
         protected virtual void Awake()
         {
@@ -71,10 +70,10 @@ namespace Game.Code.Logic.Card
             
             if (_isOnTable && _parentCardBend != null)
             {
-                CardDropZone dropZone = FindFirstObjectByType<CardDropZone>();
+                var dropZone = FindFirstObjectByType<CardDropZone>();
                 if (dropZone != null)
                 {
-                    bool wasDestroyed = dropZone.OnCardReleased(this);
+                    var wasDestroyed = dropZone.OnCardReleased(this);
                     if (wasDestroyed)
                     {
                         return; // Card was destroyed, don't continue
@@ -90,7 +89,6 @@ namespace Game.Code.Logic.Card
             }
         }
 
-
         public void SetStartPosition(Vector2 newStartPosition)
         {
             _startPosition = newStartPosition;
@@ -103,7 +101,7 @@ namespace Game.Code.Logic.Card
 
         public void DestroyCard()
         {
-            CardBend cardBend = GetComponentInParent<CardBend>();
+            var cardBend = GetComponentInParent<CardBend>();
             if (cardBend != null)
             {
                 cardBend.OnCardDestroyed(gameObject);
@@ -112,7 +110,7 @@ namespace Game.Code.Logic.Card
             Destroy(gameObject);
         }
 
-        public void ReturnToHand()
+        private void ReturnToHand()
         {
             if (_parentCardBend != null && _isOnTable)
             {
@@ -121,11 +119,5 @@ namespace Game.Code.Logic.Card
                 _returningToStart = false; // cardbend should hadle positioning instead of this script
             }
         }
-
-        public bool IsOnTable()
-        {
-            return _isOnTable;
-        }
-
     }
 }
