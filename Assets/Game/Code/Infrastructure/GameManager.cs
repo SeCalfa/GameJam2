@@ -17,6 +17,8 @@ namespace Game.Code.Infrastructure
         private Container _container;
         
         public static GameManager Instance { get; private set; }
+        public PrefabsList PrefabsList => prefabsList;
+        public Container Container => _container;
 
         private void Awake()
         {
