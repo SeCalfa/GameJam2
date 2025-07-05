@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.Code.Infrastructure.SO
+namespace Game.Code.Infrastructure.SO.Prefabs
 {
     [CreateAssetMenu(fileName = "PrefabsList", menuName = "SO/PrefabsList")]
     public class PrefabsList : ScriptableObject

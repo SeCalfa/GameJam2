@@ -370,6 +370,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabsList: {fileID: 11400000, guid: 16b6370ad9cb8494e923bfc2fe774e9e, type: 2}
+  round1: {fileID: 11400000, guid: 72eee85387804554b8aad26b1dae3f75, type: 2}
+  round2: {fileID: 11400000, guid: c37895b698ff6d0489966da5ad206c5f, type: 2}
+  round3: {fileID: 11400000, guid: cd30d5f76b62c0c43b3c72cc5fd26574, type: 2}
 --- !u!4 &670221512
 Transform:
   m_ObjectHideFlags: 0

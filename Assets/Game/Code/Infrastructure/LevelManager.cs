@@ -1,5 +1,5 @@
 using Game.Code.Infrastructure.GameObjectsLocator;
-using Game.Code.Infrastructure.SO;
+using Game.Code.Infrastructure.SO.Prefabs;
 using UnityEngine;
 
 namespace Game.Code.Infrastructure
