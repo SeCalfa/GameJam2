@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using Game.Code.Infrastructure.GameObjectsLocator;
 using Game.Code.Infrastructure.SO.Prefabs;
 using Game.Code.Infrastructure.SO.Rounds;
+using Game.Code.Logic.Card;
 using Game.Code.Logic.UI.Gameplay;
 using UnityEngine;
 
@@ -17,6 +19,9 @@ namespace Game.Code.Infrastructure
 
         private RoundData _currentRound;
         private int _currentStamina;
+        
+        private List<CardEntity> _avilableCards = new();
+        private List<CardEntity> _usedCards = new();
 
         public Gameplay(
             Container container,
@@ -42,8 +47,8 @@ namespace Game.Code.Infrastructure
             };
             
             // Spawn enemy
-            var enemy = _container.CreateGameObject(Constants.Enemy, _currentRound.GetEnemy);
-            enemy.transform.position = _enemyPoint.position;
+            var enemy = _container.CreateGameObject<Transform>(Constants.Enemy, _currentRound.GetEnemy);
+            enemy.position = _enemyPoint.position;
             
             // Spawn card hand
             SpawnCardHand();
@@ -57,18 +62,55 @@ namespace Game.Code.Infrastructure
 
         public void TurnStart(int staminaToAdd)
         {
-            _currentStamina += staminaToAdd;
-            
             var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
+
+            _currentStamina += staminaToAdd;
+
+            gameplayHud.ToggleStamina(true);
             gameplayHud.ShowStamina(_currentStamina);
         }
 
-        public void TurnEnd()
+        private void TurnEnd()
         {
-            
+            var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
+            gameplayHud.ToggleStamina(false);
         }
 
-        private void SpawnCardHand() => _container.CreateGameObject(Constants.CardHand, _prefabsList.GetCardHand);
-        private void SpawnGameplayHUD() => _container.CreateGameObject(Constants.GameplayHUD, _prefabsList.GetGameplayHUD);
+        private void SpawnCardHand()
+        {
+            var cardBend = _container.CreateGameObject<CardBend>(Constants.CardHand, _prefabsList.GetCardHand);
+            _avilableCards = _currentRound.GetCards;
+
+            var newRandomCards = TakeRandomCards(cardBend.CardsCountToFull);
+            cardBend.AddCards(newRandomCards);
+        }
+
+        private void SpawnGameplayHUD()
+        {
+            var gameplayHud = _container.CreateGameObject<GameplayHud>(Constants.GameplayHUD, _prefabsList.GetGameplayHUD);
+            gameplayHud.OnTurnEnd += TurnEnd;
+        }
+
+        private List<CardEntity> TakeRandomCards(int count)
+        {
+            var newCards = new List<CardEntity>();
+
+            for (var i = 0; i < count; i++)
+            {
+                var randomCardIndex = Random.Range(0, _avilableCards.Count);
+                var randomCard = _avilableCards[randomCardIndex];
+                
+                newCards.Add(randomCard);
+                _avilableCards.RemoveAt(randomCardIndex);
+
+                if (_avilableCards.Count == 0)
+                {
+                    _avilableCards = _usedCards;
+                    break;
+                }
+            }
+            
+            return newCards;
+        }
     }
 }

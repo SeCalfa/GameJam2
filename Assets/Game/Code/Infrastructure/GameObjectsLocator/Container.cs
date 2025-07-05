@@ -8,12 +8,12 @@ namespace Game.Code.Infrastructure.GameObjectsLocator
     {
         private readonly List<GameObjectsDictionary> _gameObjects = new();
 
-        public GameObject CreateGameObject(string name, GameObject gameObject)
+        public T CreateGameObject<T>(string name, GameObject gameObject)
         {
             var gameObjectSpawned = Object.Instantiate(gameObject);
             _gameObjects.Add(new GameObjectsDictionary(name, gameObjectSpawned));
             
-            return gameObjectSpawned;
+            return gameObjectSpawned.GetComponent<T>();
         }
 
         public T GetGameObjectByName<T>(string name)
