@@ -5,8 +5,8 @@ namespace Game.Code.Infrastructure.SO.Prefabs
     [CreateAssetMenu(fileName = "PrefabsList", menuName = "SO/PrefabsList")]
     public class PrefabsList : ScriptableObject
     {
-        [SerializeField] private GameObject test;
+        [SerializeField] private GameObject gameplayHUD;
 
-        public GameObject GetTest => test;
+        public GameObject GetGameplayHUD => gameplayHUD;
     }
 }

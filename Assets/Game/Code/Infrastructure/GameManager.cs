@@ -13,10 +13,8 @@ namespace Game.Code.Infrastructure
         [SerializeField] private RoundData round2;
         [SerializeField] private RoundData round3;
 
-        public PrefabsList GetPrefabsList => prefabsList;
-
         private Gameplay _gameplay;
-        public Container Container { get; private set; }
+        private Container _container;
         
         public static GameManager Instance { get; private set; }
 
@@ -45,9 +43,16 @@ namespace Game.Code.Infrastructure
         private void Init()
         {
             _gameplay = new Gameplay(round1, round2, round3);
-            Container = new Container();
+            _container = new Container();
             
             _gameplay.RunRound(Round.Round1);
+            
+            SpawnGameplayHUD();
+        }
+        
+        private void SpawnGameplayHUD()
+        {
+            _container.CreateGameObject(Constants.GameplayHUD, prefabsList.GetGameplayHUD);
         }
     }
 }

@@ -2,6 +2,6 @@ namespace Game.Code
 {
     public static class Constants
     {
-        public static readonly string TestName = "Test";
+        public const string GameplayHUD = "GameplayHUD";
     }
 }

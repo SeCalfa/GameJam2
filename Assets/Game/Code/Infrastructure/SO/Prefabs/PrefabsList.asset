@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f75c678914d380469e43cac044a43da, type: 3}
   m_Name: PrefabsList
   m_EditorClassIdentifier: 
-  test: {fileID: 450302704278402064, guid: a0f19012dfaca58478a7969443209822, type: 3}
+  gameplayHUD: {fileID: 449464487600677611, guid: b9e7ed363285ee746a65dfee5a688c24, type: 3}
