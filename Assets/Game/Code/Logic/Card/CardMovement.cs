@@ -43,15 +43,12 @@ namespace Game.Code.Logic.Card
             if (!_isDragging)
             {
                 _isDragging = true;
-                // Remove from hand when starting to drag
                 if (_parentCardBend != null && !_isOnTable)
                 {
                     _parentCardBend.OnCardPulledOut(gameObject);
                     _isOnTable = true;
                 }
             }
-
-            // Smoothly rotate to vertical (0 degrees) when dragging
             if (_isOnTable)
             {
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.identity, Time.deltaTime * ReturnSpeed);
@@ -74,6 +71,17 @@ namespace Game.Code.Logic.Card
             
             if (_isOnTable && _parentCardBend != null)
             {
+                CardDropZone dropZone = FindFirstObjectByType<CardDropZone>();
+                if (dropZone != null)
+                {
+                    bool wasDestroyed = dropZone.OnCardReleased(this);
+                    if (wasDestroyed)
+                    {
+                        return; // Card was destroyed, don't continue
+                    }
+                }
+                
+                // Card wasn't destroyed, return to hand
                 ReturnToHand();
             }
             else if (!_isOnTable)
@@ -82,10 +90,6 @@ namespace Game.Code.Logic.Card
             }
         }
 
-        // private void OnMouseDown()
-        // {
-        //     DestroyCard();
-        // }
 
         public void SetStartPosition(Vector2 newStartPosition)
         {
@@ -112,7 +116,6 @@ namespace Game.Code.Logic.Card
         {
             if (_parentCardBend != null && _isOnTable)
             {
-                Debug.Log($"CardMovement: Returning {gameObject.name} to hand");
                 _parentCardBend.ReturnCardToHand(gameObject);
                 _isOnTable = false;
                 _returningToStart = false; // cardbend should hadle positioning instead of this script
