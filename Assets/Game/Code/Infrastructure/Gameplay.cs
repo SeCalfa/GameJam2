@@ -22,7 +22,7 @@ namespace Game.Code.Infrastructure
         private int _maxStamina;
         private int _currentHp = 30;
         private int _currentArmor;
-        
+
         public int CurrentStamina { get; set; }
 
         private List<CardEntity> _availableCards = new();
@@ -111,7 +111,7 @@ namespace Game.Code.Infrastructure
 
         public void TakeCard(CardType cardType, int baseValue, int additionalValue)
         {
-            if (cardType is CardType.Defence5 or CardType.Defence8 or CardType.Defence12)
+            if (cardType is CardType.Defence5 or CardType.Defence8 or CardType.Defence12 or CardType.Debuff3)
             {
                 _currentArmor = baseValue;
             }

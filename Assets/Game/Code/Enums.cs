@@ -18,7 +18,9 @@ namespace Game.Code
         Buff1,
         Buff2,
         Buff3,
-        Debuff
+        Debuff1,
+        Debuff2,
+        Debuff3
     }
 
     public enum EnemyType

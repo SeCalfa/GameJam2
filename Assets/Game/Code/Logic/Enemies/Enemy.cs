@@ -19,7 +19,8 @@ namespace Game.Code.Logic.Enemies
         private int _attackDamage, _maxHealth, _currentHealth;
         private Gameplay _gameplay;
         
-        private DebuffType _currentDebuff = DebuffType.None;
+        private static int _debuffDamage;
+        private static bool _healDebuff;
         
         public int GetCurrentHealth => _currentHealth;
 
@@ -54,12 +55,26 @@ namespace Game.Code.Logic.Enemies
 
         public void DoAction(ref int currentHealth, ref int currentArmor)
         {
-            currentArmor -= _attackDamage;
+            if (_healDebuff)
+            {
+                currentHealth += _attackDamage - _debuffDamage;
+                if (currentHealth > 30)
+                {
+                    currentHealth = 30;
+                }
+                
+                _healDebuff = false;
+                return;
+            }
+            
+            currentArmor -= _attackDamage - _debuffDamage;
             if (currentArmor < 0)
             {
                 currentHealth += currentArmor;
                 currentArmor = 0;
             }
+            
+            DebuffDamageUse();
         }
 
         public void TakeCard(CardType cardType, int baseValue, int additionalValue)
@@ -76,6 +91,18 @@ namespace Game.Code.Logic.Enemies
             {
                 TakeDamage(_gameplay.CurrentStamina >= 8 ? additionalValue : baseValue);
             }
+            else if (cardType is CardType.Debuff1)
+            {
+                _debuffDamage = baseValue;
+            }
+            else if (cardType is CardType.Debuff2)
+            {
+                _healDebuff = true;
+            }
+            else if (cardType is CardType.Debuff3)
+            {
+                _debuffDamage = baseValue;
+            }
         }
 
         private void TakeDamage(int damage)
@@ -88,7 +115,14 @@ namespace Game.Code.Logic.Enemies
             }
         }
 
-        public void SetDebuff(DebuffType debuff) => _currentDebuff = debuff;
+        private void DebuffDamageUse()
+        {
+            _debuffDamage -= 1;
+            if (_debuffDamage < 0)
+            {
+                _debuffDamage = 0;
+            }
+        }
 
         private void Die()
         {

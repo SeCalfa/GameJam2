@@ -45,7 +45,7 @@ namespace Game.Code.Logic.Card
                 UseBuff();
                 
                 if (cardType is CardType.Defence5 or CardType.Defence8 or CardType.Defence12
-                    or CardType.Buff1 or CardType.Buff2 or CardType.Buff3)
+                    or CardType.Buff1 or CardType.Buff2 or CardType.Buff3 or CardType.Debuff3)
                 {
                     _gameplay.TakeCard(cardType, cardValueBase + add, cardValueAdditional + add);
                 }
