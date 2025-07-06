@@ -1,4 +1,5 @@
 using Game.Code.Infrastructure;
+using Game.Code.Logic.UI;
 using UnityEngine;
 
 namespace Game.Code.Logic.Enemies
@@ -72,6 +73,11 @@ namespace Game.Code.Logic.Enemies
             {
                 currentHealth += currentArmor;
                 currentArmor = 0;
+
+                if (currentHealth <= 0)
+                {
+                    ChangeScene.Instance.TransitionToScene("EndGame");
+                }
             }
             
             DebuffDamageUse();
@@ -151,7 +157,7 @@ namespace Game.Code.Logic.Enemies
             }
             else if (enemyType is EnemyType.Third)
             {
-                
+                ChangeScene.Instance.TransitionToScene("WinGame");
             }
         }
     }

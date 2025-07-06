@@ -69,12 +69,6 @@ namespace Game.Code.Infrastructure
             {
                 Application.Quit();
             }
-            
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                ChangeScene changeScene = FindFirstObjectByType<ChangeScene>();
-                changeScene.TransitionToScene("EndGame");
-            }
         }
 
         private void Init()

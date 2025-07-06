@@ -10,8 +10,12 @@ namespace Game.Code.Logic.UI
     
         [SerializeField] private bool fadeInOnStart = true;
 
+        public static ChangeScene Instance;
+
         void Awake()
         {
+            Instance = this;
+            
             if (curtainCanvasGroup != null)
             {
                 if (fadeInOnStart) // fade in if set true
