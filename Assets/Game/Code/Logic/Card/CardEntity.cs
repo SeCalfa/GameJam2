@@ -1,5 +1,6 @@
 using Game.Code.Infrastructure;
 using Game.Code.Logic.Enemies;
+using Game.Code.Logic.Music;
 using UnityEngine;
 
 namespace Game.Code.Logic.Card
@@ -63,6 +64,8 @@ namespace Game.Code.Logic.Card
                 _gameplay.CurrentStamina -= staminaCost;
                 _gameplay.UpdateStamina();
                 
+                PlaySoundEffect.PlayCardDrop();
+
                 return true;
             }
 

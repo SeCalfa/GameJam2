@@ -22,8 +22,22 @@ namespace Game.Code.Logic.Music
             audioSource.loop = true;
             audioSource.volume = volume;
 
-            // Play first track
-            PlayTrack(0);
+            // Play random track on start
+            if (musicTracks.Length == 0 || musicTracks[0] == null)
+            {
+                Debug.LogWarning("No music tracks assigned to PlayMusic component.");
+                return;
+            }
+            else if (musicTracks.Length == 1)
+            {
+                audioSource.clip = musicTracks[0];
+            }
+            else
+            {
+                int randomIndex = Random.Range(0, musicTracks.Length);
+                audioSource.clip = musicTracks[randomIndex];
+            }
+            audioSource.Play();
         }
 
         void Update()

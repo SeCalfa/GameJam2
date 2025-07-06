@@ -133,6 +133,8 @@ MonoBehaviour:
   - {fileID: 1936805402326470552}
   - {fileID: 6370170486300213323}
   - {fileID: 6533784813972200381}
+  turnEndSound: {fileID: 8300000, guid: c4cf63880db191647bc25436bc041f2e, type: 3}
+  soundVolume: 1
 --- !u!1 &1654078342062353212
 GameObject:
   m_ObjectHideFlags: 0
