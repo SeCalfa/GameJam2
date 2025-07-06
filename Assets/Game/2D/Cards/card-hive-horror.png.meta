@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      card-hive-horror_0: -4843814161306212629
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

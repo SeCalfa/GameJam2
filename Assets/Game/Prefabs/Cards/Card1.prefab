@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Next two cards cost 1 less each
+  m_text: Next two cards +1 to its numeric effect
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 206eb88d6a6b745468b9ef615da9f604, type: 2}
   m_sharedMaterial: {fileID: -6180916595599006588, guid: 206eb88d6a6b745468b9ef615da9f604, type: 2}
@@ -420,7 +420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5f06b1954924c9e8efd8cb0f42096e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardType: 0
+  cardType: 2
   cardValueBase: 0
   cardValueAdditional: 0
   staminaCost: 2

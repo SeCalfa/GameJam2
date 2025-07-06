@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      card-nectar-leech_0: -7128901419421217161
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
