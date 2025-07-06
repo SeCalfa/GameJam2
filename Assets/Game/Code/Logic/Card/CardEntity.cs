@@ -1,4 +1,5 @@
 using Game.Code.Infrastructure;
+using Game.Code.Logic.Enemies;
 using UnityEngine;
 
 namespace Game.Code.Logic.Card
@@ -36,6 +37,10 @@ namespace Game.Code.Logic.Card
         {
             if (_gameplay.CurrentStamina >= staminaCost)
             {
+                var enemy = _gameplay.GetContainer.GetGameObjectByName<Enemy>(Constants.Enemy);
+                enemy.TakeCard(cardType, cardValueBase, cardValueAdditional);
+                _gameplay.UpdateEnemyHp();
+                
                 _gameplay.CurrentStamina -= staminaCost;
                 _gameplay.UpdateStamina();
                 

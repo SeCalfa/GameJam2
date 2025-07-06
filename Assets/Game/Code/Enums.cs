@@ -9,7 +9,9 @@ namespace Game.Code
 
     public enum CardType
     {
-        Attack,
+        Attack3,
+        Attack6,
+        Attack1014,
         Defence,
         Buff,
         Debuff

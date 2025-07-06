@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardType: 0
-  cardValueBase: 0
+  cardValueBase: 3
   cardValueAdditional: 0
   staminaCost: 1
 --- !u!1 &7444263777780715547

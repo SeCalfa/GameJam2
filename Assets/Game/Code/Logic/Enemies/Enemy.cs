@@ -57,6 +57,22 @@ namespace Game.Code.Logic.Enemies
             currentHealth -= _attackDamage;
         }
 
+        public void TakeCard(CardType cardType, int baseValue, int additionalValue)
+        {
+            if (cardType is CardType.Attack3)
+            {
+                TakeDamage(baseValue);
+            }
+            else if (cardType is CardType.Attack6)
+            {
+                TakeDamage(baseValue);
+            }
+            else if (cardType is CardType.Attack1014)
+            {
+                TakeDamage(_gameplay.CurrentStamina >= 8 ? additionalValue : baseValue);
+            }
+        }
+
         private void TakeDamage(int damage)
         {
             _currentHealth -= damage;

@@ -26,6 +26,8 @@ namespace Game.Code.Infrastructure
 
         private List<CardEntity> _availableCards = new();
 
+        public Container GetContainer => _container;
+        
         public Gameplay(
             Container container,
             PrefabsList prefabsList,
@@ -97,6 +99,13 @@ namespace Game.Code.Infrastructure
         {
             var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
             gameplayHud.ShowStamina(CurrentStamina);
+        }
+        
+        public void UpdateEnemyHp()
+        {
+            var enemy = _container.GetGameObjectByName<Enemy>(Constants.Enemy);
+            var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
+            gameplayHud.ShowEnemyHp(enemy.GetCurrentHealth);
         }
         
         private void UpdatePlayerHp()
