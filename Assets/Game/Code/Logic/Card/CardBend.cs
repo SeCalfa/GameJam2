@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Game.Code.Infrastructure;
+using Game.Code.Logic.Music;
 
 namespace Game.Code.Logic.Card
 {
@@ -37,7 +38,7 @@ namespace Game.Code.Logic.Card
             {
                 ArrangeCards();
             }
-            
+
             if (Input.GetKeyDown(addCardKey))
             {
                 AddCard();
@@ -77,7 +78,9 @@ namespace Game.Code.Logic.Card
 
                 SetupCard(newCard, i);
             }
-            
+
+            PlaySoundEffect.PlayEndTurn();
+
             _isArranging = true;
         }
 
@@ -90,7 +93,7 @@ namespace Game.Code.Logic.Card
             {
                 newCard = card;
                 newCard.transform.SetParent(transform);
-                
+
                 var cardMovement = newCard.GetComponent<CardMovement>();
                 if (cardMovement != null)
                 {
@@ -208,7 +211,7 @@ namespace Game.Code.Logic.Card
             if (_activeCards.Contains(destroyedCard))
             {
                 _activeCards.Remove(destroyedCard);
-                
+
                 if (_activeCards.Count < 6)
                 {
                     _isArranging = true;
@@ -227,13 +230,13 @@ namespace Game.Code.Logic.Card
 
         public void ReturnCardToHand(GameObject card)
         {
-            
+
             if (!_activeCards.Contains(card) && _activeCards.Count < 6)
             {
                 card.transform.SetParent(transform);
-                
+
                 _activeCards.Add(card);
-                
+
                 _isArranging = true;
             }
         }
