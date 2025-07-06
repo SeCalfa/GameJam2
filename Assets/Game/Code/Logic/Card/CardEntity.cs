@@ -44,7 +44,7 @@ namespace Game.Code.Logic.Card
                 var enemy = _gameplay.GetContainer.GetGameObjectByName<Enemy>(Constants.Enemy);
                 
                 UseBuff();
-                
+
                 if (cardType is CardType.Defence5 or CardType.Defence8 or CardType.Defence12
                     or CardType.Buff1 or CardType.Buff2 or CardType.Buff3 or CardType.Debuff3)
                 {
@@ -53,12 +53,15 @@ namespace Game.Code.Logic.Card
                 else
                 {
                     enemy.TakeCard(cardType, cardValueBase + add, cardValueAdditional + add);
+                    _gameplay.UpdateEnemyAttack();
                 }
 
                 _gameplay.UpdateEnemyHp();
                 
                 _gameplay.CurrentStamina -= staminaCost;
                 _gameplay.UpdateStamina();
+                _gameplay.UpdatePlayerArmor();
+                
                 
                 PlaySoundEffect.PlayCardDrop();
 

@@ -7,17 +7,20 @@ namespace Game.Code.Logic.Card
     {
         private Vector2 _startPosition;
         private Quaternion _startRotation;
+        private Vector3 _startScale;
         private bool _returningToStart;
         private bool _isOnTable;
         private bool _isDragging;
         private CardBend _parentCardBend;
 
         private const float ReturnSpeed = 10f;
+        private const float DragScale = 1.4f;
 
         protected virtual void Awake()
         {
             _startPosition = transform.position;
             _startRotation = transform.rotation;
+            _startScale = transform.localScale;
             _parentCardBend = GetComponentInParent<CardBend>();
         }
 
@@ -27,12 +30,14 @@ namespace Game.Code.Logic.Card
             {
                 transform.position = Vector2.Lerp(transform.position, _startPosition, Time.deltaTime * ReturnSpeed);
                 transform.rotation = Quaternion.Lerp(transform.rotation, _startRotation, Time.deltaTime * ReturnSpeed);
+                transform.localScale = Vector3.Lerp(transform.localScale, _startScale, Time.deltaTime * ReturnSpeed);
 
                 if (Vector2.Distance(transform.position, _startPosition) < 0.01f &&
                     Quaternion.Angle(transform.rotation, _startRotation) < 0.1f)
                 {
                     transform.position = _startPosition;
                     transform.rotation = _startRotation;
+                    transform.localScale = _startScale;
                     _returningToStart = false;
                 }
             }
@@ -43,6 +48,8 @@ namespace Game.Code.Logic.Card
             if (!_isDragging)
             {
                 _isDragging = true;
+                transform.localScale = _startScale * DragScale;
+                
                 if (_parentCardBend != null && !_isOnTable)
                 {
                     _parentCardBend.OnCardPulledOut(gameObject);
@@ -68,6 +75,9 @@ namespace Game.Code.Logic.Card
         private void OnMouseUp()
         {
             _isDragging = false;
+            
+            // Return card to normal scale when releasing
+            transform.localScale = _startScale;
 
             if (_isOnTable && _parentCardBend != null)
             {
@@ -94,6 +104,11 @@ namespace Game.Code.Logic.Card
         public void SetStartRotation(Quaternion newStartRotation)
         {
             _startRotation = newStartRotation;
+        }
+
+        public void SetStartScale(Vector3 newStartScale)
+        {
+            _startScale = newStartScale;
         }
 
         public void DestroyCard()

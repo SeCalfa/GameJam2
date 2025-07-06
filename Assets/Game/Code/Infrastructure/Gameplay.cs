@@ -63,6 +63,7 @@ namespace Game.Code.Infrastructure
             // Spawn gameplay HUD
             var gameplayHud = SpawnGameplayHUD();
             gameplayHud.ShowEnemyHp(enemy.GetCurrentHealth);
+            UpdateEnemyAttack();
             
             // First turn start
             TurnStart(1);
@@ -92,7 +93,8 @@ namespace Game.Code.Infrastructure
             var enemy = _container.GetGameObjectByName<Enemy>(Constants.Enemy);
             enemy.DoAction(ref _currentHp, ref _currentArmor);
             UpdatePlayerHp();
-            
+            UpdatePlayerArmor();
+            UpdateEnemyAttack();
             TurnStart(1);
         }
 
@@ -108,6 +110,13 @@ namespace Game.Code.Infrastructure
             var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
             gameplayHud.ShowEnemyHp(enemy.GetCurrentHealth);
         }
+        
+        public void UpdateEnemyAttack()
+        {
+            var enemy = _container.GetGameObjectByName<Enemy>(Constants.Enemy);
+            var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
+            gameplayHud.ShowEnemyAttack(enemy.GetCurrentAttack);
+        }
 
         public void TakeCard(CardType cardType, int baseValue, int additionalValue)
         {
@@ -118,7 +127,7 @@ namespace Game.Code.Infrastructure
             else if (cardType is CardType.Buff1)
             {
                 CurrentStamina += baseValue;
-                
+
                 var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
                 gameplayHud.ToggleStamina(true);
                 gameplayHud.ShowStamina(CurrentStamina);
@@ -138,6 +147,12 @@ namespace Game.Code.Infrastructure
             var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
             gameplayHud.ShowPlayerHp(_currentHp);
         }
+        public void UpdatePlayerArmor()
+        {
+            var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
+            if (gameplayHud != null)
+                gameplayHud.ShowPlayerShield(_currentArmor);
+        }
 
         private void SpawnCardHand()
         {
@@ -153,6 +168,7 @@ namespace Game.Code.Infrastructure
         {
             var gameplayHud = _container.CreateGameObject<GameplayHud>(Constants.GameplayHUD, _prefabsList.GetGameplayHUD);
             gameplayHud.ShowPlayerHp(_currentHp);
+            gameplayHud.ShowPlayerShield(_currentArmor);
             gameplayHud.OnTurnEnd += TurnEnd;
             
             return gameplayHud;

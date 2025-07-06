@@ -24,6 +24,8 @@ namespace Game.Code.Logic.Enemies
         
         public int GetCurrentHealth => _currentHealth;
 
+        public int GetCurrentAttack => _attackDamage - _debuffDamage;
+
         public void Construct(Gameplay gameplay)
         {
             _gameplay = gameplay;
