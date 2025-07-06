@@ -49,6 +49,11 @@ namespace Game.Code.Logic.Card
                     or CardType.Buff1 or CardType.Buff2 or CardType.Buff3 or CardType.Debuff3)
                 {
                     _gameplay.TakeCard(cardType, cardValueBase + add, cardValueAdditional + add);
+
+                    if (cardType is CardType.Debuff3)
+                    {
+                        Enemy.DebuffDamage2 = 2;
+                    }
                 }
                 else
                 {
@@ -64,6 +69,7 @@ namespace Game.Code.Logic.Card
                 
                 _gameplay.CurrentStamina -= staminaCost;
                 _gameplay.UpdateStamina();
+                _gameplay.UpdateEnemyAttack();
                 _gameplay.UpdatePlayerArmor();
                 
                 

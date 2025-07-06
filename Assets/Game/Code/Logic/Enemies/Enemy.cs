@@ -19,13 +19,14 @@ namespace Game.Code.Logic.Enemies
 
         private int _attackDamage, _maxHealth, _currentHealth;
         private Gameplay _gameplay;
-        
+
+        public static int DebuffDamage2;
         private static int _debuffDamage;
         private static bool _healDebuff;
-        
+
         public int GetCurrentHealth => _currentHealth;
 
-        public int GetCurrentAttack => _attackDamage - _debuffDamage;
+        public int GetCurrentAttack => _attackDamage - _debuffDamage - DebuffDamage2;
 
         public void Construct(Gameplay gameplay)
         {
@@ -60,7 +61,7 @@ namespace Game.Code.Logic.Enemies
         {
             if (_healDebuff)
             {
-                currentHealth += _attackDamage - _debuffDamage;
+                currentHealth += _attackDamage - _debuffDamage - DebuffDamage2;
                 if (currentHealth > 30)
                 {
                     currentHealth = 30;
@@ -70,7 +71,7 @@ namespace Game.Code.Logic.Enemies
                 return;
             }
             
-            currentArmor -= _attackDamage - _debuffDamage;
+            currentArmor -= _attackDamage - _debuffDamage - DebuffDamage2;
             if (currentArmor < 0)
             {
                 currentHealth += currentArmor;
@@ -81,8 +82,9 @@ namespace Game.Code.Logic.Enemies
                     ChangeScene.Instance.TransitionToScene("EndGame");
                 }
             }
-            
+
             DebuffDamageUse();
+            DebuffDamage2 = 0;
         }
 
         public bool TakeCard(CardType cardType, int baseValue, int additionalValue)
