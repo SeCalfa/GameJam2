@@ -3,7 +3,7 @@ using Game.Code.Infrastructure.GameObjectsLocator;
 using Game.Code.Infrastructure.SO.Prefabs;
 using Game.Code.Infrastructure.SO.Rounds;
 using Game.Code.Logic.Card;
-using Game.Code.Logic.Enemy;
+using Game.Code.Logic.Enemies;
 using Game.Code.Logic.UI.Gameplay;
 using UnityEngine;
 
@@ -81,7 +81,9 @@ namespace Game.Code.Infrastructure
             gameplayHud.ToggleStamina(false);
             
             // Enemy action
-            var enemy = _container.GetGameObjectByName<Interactions>(Constants.Enemy);
+            var enemy = _container.GetGameObjectByName<Enemy>(Constants.Enemy);
+            CurrentHp -= enemy.Attack();
+            UpdatePlayerHp();
             
             TurnStart(1);
         }
@@ -90,6 +92,12 @@ namespace Game.Code.Infrastructure
         {
             var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
             gameplayHud.ShowStamina(CurrentStamina);
+        }
+        
+        private void UpdatePlayerHp()
+        {
+            var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
+            gameplayHud.ShowHp(CurrentHp);
         }
 
         private void SpawnCardHand()
