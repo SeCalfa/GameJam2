@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: aa25b4d3e0fb4924e8f0db78fe6244b3
+guid: b22a3082b8804ee498246ae9990f25c7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4781373940957465942
-    second: exit_0
+      213: 4222543463134562893
+    second: purple-enemy_0
+  - first:
+      213: 6516152381386637602
+    second: purple-enemy_1
+  - first:
+      213: 5634113423921258432
+    second: purple-enemy_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: exit_0
+      name: purple-enemy_0
       rect:
         serializedVersion: 2
-        x: 722
-        y: 316
-        width: 476
-        height: 131
+        x: 47
+        y: 15
+        width: 708
+        height: 854
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: aa2bbe6cbb525adb0800000000000000
-      internalID: -4781373940957465942
+      spriteID: d4a88c068ec799a30800000000000000
+      internalID: 4222543463134562893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: purple-enemy_1
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 822
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 221cdda11160e6a50800000000000000
+      internalID: 6516152381386637602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: purple-enemy_2
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 337
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cf1619ee44603e40800000000000000
+      internalID: 5634113423921258432
       vertices: []
       indices: 
       edges: []
@@ -125,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      exit_0: -4781373940957465942
+      purple-enemy_0: 4222543463134562893
+      purple-enemy_1: 6516152381386637602
+      purple-enemy_2: 5634113423921258432
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

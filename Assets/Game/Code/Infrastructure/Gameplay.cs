@@ -19,6 +19,7 @@ namespace Game.Code.Infrastructure
 
         private RoundData _currentRound;
         public int CurrentStamina { get; set; }
+        public int CurrentHp { get; set; } = 30;
         
         private List<CardEntity> _availableCards = new();
 
@@ -98,6 +99,7 @@ namespace Game.Code.Infrastructure
         private void SpawnGameplayHUD()
         {
             var gameplayHud = _container.CreateGameObject<GameplayHud>(Constants.GameplayHUD, _prefabsList.GetGameplayHUD);
+            gameplayHud.ShowHp(CurrentHp);
             gameplayHud.OnTurnEnd += TurnEnd;
         }
 

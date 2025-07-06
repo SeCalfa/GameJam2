@@ -1,15 +1,22 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace Game.Code.Logic.UI.Gameplay
 {
     public class GameplayHud : MonoBehaviour
     {
         [SerializeField] private Button endTurnButton;
+        [SerializeField] private TextMeshProUGUI hpText;
         [SerializeField] private Image[] staminaLogos;
 
         public event Action OnTurnEnd;
+
+        public void ShowHp(int hp)
+        {
+            hpText.text = hp.ToString();
+        }
 
         public void ShowStamina(int stamina)
         {
