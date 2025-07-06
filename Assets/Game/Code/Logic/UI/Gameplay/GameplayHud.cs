@@ -8,14 +8,20 @@ namespace Game.Code.Logic.UI.Gameplay
     public class GameplayHud : MonoBehaviour
     {
         [SerializeField] private Button endTurnButton;
-        [SerializeField] private TextMeshProUGUI hpText;
+        [SerializeField] private TextMeshProUGUI enemyHpText;
+        [SerializeField] private TextMeshProUGUI playerHpText;
         [SerializeField] private Image[] staminaLogos;
 
         public event Action OnTurnEnd;
 
-        public void ShowHp(int hp)
+        public void ShowPlayerHp(int hp)
         {
-            hpText.text = hp.ToString();
+            playerHpText.text = hp.ToString();
+        }
+        
+        public void ShowEnemyHp(int hp)
+        {
+            enemyHpText.text = hp.ToString();
         }
 
         public void ShowStamina(int stamina)

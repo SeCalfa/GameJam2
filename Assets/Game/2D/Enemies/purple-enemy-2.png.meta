@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1e381d9e9a7b04548b1f601efccf5c0a
+guid: 0eab7407980ed1248a2987078edad357
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6450244300066960991
-    second: resume_0
+      213: 1834459541611429135
+    second: purple-enemy-2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: resume_0
+      name: purple-enemy-2_0
       rect:
         serializedVersion: 2
-        x: 606
-        y: 223
-        width: 476
-        height: 131
+        x: 0
+        y: 58
+        width: 1032
+        height: 769
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1a94504ebf02c76a0800000000000000
-      internalID: -6450244300066960991
+      spriteID: f0d3394db3f457910800000000000000
+      internalID: 1834459541611429135
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      resume_0: -6450244300066960991
+      purple-enemy-2_0: 1834459541611429135
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

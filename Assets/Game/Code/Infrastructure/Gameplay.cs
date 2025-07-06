@@ -19,9 +19,11 @@ namespace Game.Code.Infrastructure
         private readonly RoundData _round3;
 
         private RoundData _currentRound;
-        public int CurrentStamina { get; set; }
-        public int CurrentHp { get; set; } = 30;
+        private int _maxStamina;
+        private int _currentHp = 30;
         
+        public int CurrentStamina { get; set; }
+
         private List<CardEntity> _availableCards = new();
 
         public Gameplay(
@@ -48,14 +50,16 @@ namespace Game.Code.Infrastructure
             };
             
             // Spawn enemy
-            var enemy = _container.CreateGameObject<Transform>(Constants.Enemy, _currentRound.GetEnemy);
-            enemy.position = _enemyPoint.position;
-            
+            var enemy = _container.CreateGameObject<Enemy>(Constants.Enemy, _currentRound.GetEnemy);
+            enemy.Construct(this);
+            enemy.transform.position = _enemyPoint.position;
+
             // Spawn card hand
             SpawnCardHand();
 
             // Spawn gameplay HUD
-            SpawnGameplayHUD();
+            var gameplayHud = SpawnGameplayHUD();
+            gameplayHud.ShowEnemyHp(enemy.GetCurrentHealth);
             
             // First turn start
             TurnStart(1);
@@ -65,7 +69,8 @@ namespace Game.Code.Infrastructure
         {
             var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
 
-            CurrentStamina += staminaToAdd;
+            _maxStamina += staminaToAdd;
+            CurrentStamina = _maxStamina;
 
             gameplayHud.ToggleStamina(true);
             gameplayHud.ShowStamina(CurrentStamina);
@@ -82,7 +87,7 @@ namespace Game.Code.Infrastructure
             
             // Enemy action
             var enemy = _container.GetGameObjectByName<Enemy>(Constants.Enemy);
-            CurrentHp -= enemy.Attack();
+            enemy.DoAction(ref _currentHp);
             UpdatePlayerHp();
             
             TurnStart(1);
@@ -97,7 +102,7 @@ namespace Game.Code.Infrastructure
         private void UpdatePlayerHp()
         {
             var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
-            gameplayHud.ShowHp(CurrentHp);
+            gameplayHud.ShowPlayerHp(_currentHp);
         }
 
         private void SpawnCardHand()
@@ -110,11 +115,13 @@ namespace Game.Code.Infrastructure
             cardBend.AddCards(newRandomCards);
         }
 
-        private void SpawnGameplayHUD()
+        private GameplayHud SpawnGameplayHUD()
         {
             var gameplayHud = _container.CreateGameObject<GameplayHud>(Constants.GameplayHUD, _prefabsList.GetGameplayHUD);
-            gameplayHud.ShowHp(CurrentHp);
+            gameplayHud.ShowPlayerHp(_currentHp);
             gameplayHud.OnTurnEnd += TurnEnd;
+            
+            return gameplayHud;
         }
 
         private List<CardEntity> TakeRandomCards(int count)

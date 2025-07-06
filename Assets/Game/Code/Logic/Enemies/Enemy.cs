@@ -1,15 +1,8 @@
+using Game.Code.Infrastructure;
 using UnityEngine;
 
 namespace Game.Code.Logic.Enemies
 {
-    public enum DebuffType
-    {
-        None,
-        ReduceDamage1,      
-        ReduceDamage2Shield, 
-        HealOnAttack        
-    }
-
     public class Enemy : MonoBehaviour
     {
         [SerializeField] private EnemyType enemyType;
@@ -24,9 +17,16 @@ namespace Game.Code.Logic.Enemies
         private const int Enemy3AttackDamage = 4;
 
         private int _attackDamage, _maxHealth, _currentHealth;
+        private Gameplay _gameplay;
         
         private DebuffType _currentDebuff = DebuffType.None;
-        private int playerShield;
+        
+        public int GetCurrentHealth => _currentHealth;
+
+        public void Construct(Gameplay gameplay)
+        {
+            _gameplay = gameplay;
+        }
 
         void Awake()
         {
@@ -52,9 +52,9 @@ namespace Game.Code.Logic.Enemies
             _currentHealth = _maxHealth;
         }
 
-        public int Attack()
+        public void DoAction(ref int currentHealth)
         {
-            return _attackDamage;
+            currentHealth -= _attackDamage;
         }
 
         private void TakeDamage(int damage)
@@ -67,48 +67,11 @@ namespace Game.Code.Logic.Enemies
             }
         }
 
-        private void DealDamageToPlayer(int baseDamage)
-        {
-            int finalDamage = baseDamage;
-            
-            // Apply debuffs
-            switch (_currentDebuff)
-            {
-                case DebuffType.ReduceDamage1:
-                    finalDamage = Mathf.Max(0, baseDamage - 1);
-                    break;
-                    
-                case DebuffType.ReduceDamage2Shield:
-                    finalDamage = Mathf.Max(0, baseDamage - 2);
-                    playerShield += 2;
-                    break;
-                    
-                case DebuffType.HealOnAttack:
-                    HealPlayer(baseDamage);
-                    ClearDebuff();
-                    return;
-            }
-            
-            // Apply damage to player (implement player damage system here)
-            Debug.Log($"Dealing {finalDamage} damage to player");
-            
-            ClearDebuff();
-        }
-
-        private void ClearDebuff()
-        {
-            _currentDebuff = DebuffType.None;
-        }
-
-        private void HealPlayer(int healAmount)
-        {
-            // Implement player healing logic here
-            Debug.Log($"Player healed for {healAmount}");
-        }
+        public void SetDebuff(DebuffType debuff) => _currentDebuff = debuff;
 
         private void Die()
         {
-            Debug.Log("Enemy died");
+            _gameplay.RunRound(Round.Round2);
         }
     }
 }
