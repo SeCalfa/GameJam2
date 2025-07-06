@@ -15,7 +15,9 @@ namespace Game.Code
         Defence5,
         Defence8,
         Defence12,
-        Buff,
+        Buff1,
+        Buff2,
+        Buff3,
         Debuff
     }
 

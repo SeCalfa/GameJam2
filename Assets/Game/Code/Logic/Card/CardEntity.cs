@@ -12,6 +12,8 @@ namespace Game.Code.Logic.Card
         [SerializeField][Range(1, 3)] private int staminaCost = 1;
         
         private Gameplay _gameplay;
+        
+        public static int BuffValue;
 
         public CardType GetCardType => cardType;
         public int GetCardValue => cardValueBase;
@@ -37,14 +39,19 @@ namespace Game.Code.Logic.Card
         {
             if (_gameplay.CurrentStamina >= staminaCost)
             {
+                var add = BuffValue > 0 ? 1 : 0;
                 var enemy = _gameplay.GetContainer.GetGameObjectByName<Enemy>(Constants.Enemy);
-                if (cardType is CardType.Defence5 or CardType.Defence8 or CardType.Defence12)
+                
+                UseBuff();
+                
+                if (cardType is CardType.Defence5 or CardType.Defence8 or CardType.Defence12
+                    or CardType.Buff1 or CardType.Buff2 or CardType.Buff3)
                 {
-                    _gameplay.TakeCard(cardType, cardValueBase, cardValueAdditional);
+                    _gameplay.TakeCard(cardType, cardValueBase + add, cardValueAdditional + add);
                 }
                 else
                 {
-                    enemy.TakeCard(cardType, cardValueBase, cardValueAdditional);
+                    enemy.TakeCard(cardType, cardValueBase + add, cardValueAdditional + add);
                 }
 
                 _gameplay.UpdateEnemyHp();
@@ -56,6 +63,15 @@ namespace Game.Code.Logic.Card
             }
 
             return false;
+        }
+
+        private void UseBuff()
+        {
+            BuffValue -= 1;
+            if (BuffValue < 0)
+            {
+                BuffValue = 0;
+            }
         }
     }
 }

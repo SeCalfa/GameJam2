@@ -72,7 +72,7 @@ namespace Game.Code.Infrastructure
         {
             var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
 
-            _maxStamina += staminaToAdd;
+            AddStamina(staminaToAdd);
             CurrentStamina = _maxStamina;
 
             gameplayHud.ToggleStamina(true);
@@ -114,6 +114,22 @@ namespace Game.Code.Infrastructure
             if (cardType is CardType.Defence5 or CardType.Defence8 or CardType.Defence12)
             {
                 _currentArmor = baseValue;
+            }
+            else if (cardType is CardType.Buff1)
+            {
+                CurrentStamina += baseValue;
+                
+                var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
+                gameplayHud.ToggleStamina(true);
+                gameplayHud.ShowStamina(CurrentStamina);
+            }
+            else if (cardType is CardType.Buff2)
+            {
+                CardEntity.BuffValue += baseValue;
+            }
+            else if (cardType is CardType.Buff3)
+            {
+                CardEntity.BuffValue += baseValue;
             }
         }
         
@@ -161,6 +177,15 @@ namespace Game.Code.Infrastructure
             }
             
             return newCards;
+        }
+
+        private void AddStamina(int staminaToAdd)
+        {
+            _maxStamina += staminaToAdd;
+            if (_maxStamina > 10)
+            {
+                _maxStamina = 10;
+            }
         }
     }
 }
