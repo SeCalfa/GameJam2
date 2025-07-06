@@ -12,7 +12,9 @@ namespace Game.Code
         Attack3,
         Attack6,
         Attack1014,
-        Defence,
+        Defence5,
+        Defence8,
+        Defence12,
         Buff,
         Debuff
     }

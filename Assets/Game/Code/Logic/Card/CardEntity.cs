@@ -38,7 +38,15 @@ namespace Game.Code.Logic.Card
             if (_gameplay.CurrentStamina >= staminaCost)
             {
                 var enemy = _gameplay.GetContainer.GetGameObjectByName<Enemy>(Constants.Enemy);
-                enemy.TakeCard(cardType, cardValueBase, cardValueAdditional);
+                if (cardType is CardType.Defence5 or CardType.Defence8 or CardType.Defence12)
+                {
+                    _gameplay.TakeCard(cardType, cardValueBase, cardValueAdditional);
+                }
+                else
+                {
+                    enemy.TakeCard(cardType, cardValueBase, cardValueAdditional);
+                }
+
                 _gameplay.UpdateEnemyHp();
                 
                 _gameplay.CurrentStamina -= staminaCost;

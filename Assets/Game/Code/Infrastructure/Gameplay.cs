@@ -21,6 +21,7 @@ namespace Game.Code.Infrastructure
         private RoundData _currentRound;
         private int _maxStamina;
         private int _currentHp = 30;
+        private int _currentArmor;
         
         public int CurrentStamina { get; set; }
 
@@ -89,7 +90,7 @@ namespace Game.Code.Infrastructure
             
             // Enemy action
             var enemy = _container.GetGameObjectByName<Enemy>(Constants.Enemy);
-            enemy.DoAction(ref _currentHp);
+            enemy.DoAction(ref _currentHp, ref _currentArmor);
             UpdatePlayerHp();
             
             TurnStart(1);
@@ -106,6 +107,14 @@ namespace Game.Code.Infrastructure
             var enemy = _container.GetGameObjectByName<Enemy>(Constants.Enemy);
             var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
             gameplayHud.ShowEnemyHp(enemy.GetCurrentHealth);
+        }
+
+        public void TakeCard(CardType cardType, int baseValue, int additionalValue)
+        {
+            if (cardType is CardType.Defence5 or CardType.Defence8 or CardType.Defence12)
+            {
+                _currentArmor = baseValue;
+            }
         }
         
         private void UpdatePlayerHp()

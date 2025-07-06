@@ -52,9 +52,14 @@ namespace Game.Code.Logic.Enemies
             _currentHealth = _maxHealth;
         }
 
-        public void DoAction(ref int currentHealth)
+        public void DoAction(ref int currentHealth, ref int currentArmor)
         {
-            currentHealth -= _attackDamage;
+            currentArmor -= _attackDamage;
+            if (currentArmor < 0)
+            {
+                currentHealth += currentArmor;
+                currentArmor = 0;
+            }
         }
 
         public void TakeCard(CardType cardType, int baseValue, int additionalValue)

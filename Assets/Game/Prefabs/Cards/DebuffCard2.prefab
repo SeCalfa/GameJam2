@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 300434292743486983}
   - component: {fileID: 8529926365062294555}
   m_Layer: 0
-  m_Name: Card11
+  m_Name: DebuffCard2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
