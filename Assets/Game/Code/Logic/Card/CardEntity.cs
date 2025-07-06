@@ -52,8 +52,11 @@ namespace Game.Code.Logic.Card
                 }
                 else
                 {
-                    enemy.TakeCard(cardType, cardValueBase + add, cardValueAdditional + add);
-                    _gameplay.UpdateEnemyAttack();
+                    var isDead = enemy.TakeCard(cardType, cardValueBase + add, cardValueAdditional + add);
+                    if (isDead)
+                    {
+                        return true;
+                    }
                 }
 
                 _gameplay.UpdateEnemyHp();

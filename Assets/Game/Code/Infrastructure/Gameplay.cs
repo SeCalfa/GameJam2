@@ -203,5 +203,15 @@ namespace Game.Code.Infrastructure
                 _maxStamina = 10;
             }
         }
+
+        public void FightFinish()
+        {
+            _currentHp = 30;
+            _currentArmor = 0;
+            _maxStamina = 0;
+            CurrentStamina = 0;
+            
+            _container.ClearAllGameObjects();
+        }
     }
 }

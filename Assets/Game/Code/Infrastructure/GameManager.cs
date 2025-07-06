@@ -1,6 +1,7 @@
 using Game.Code.Infrastructure.GameObjectsLocator;
 using Game.Code.Infrastructure.SO.Prefabs;
 using Game.Code.Infrastructure.SO.Rounds;
+using Game.Code.Logic.UI;
 using UnityEngine;
 
 namespace Game.Code.Infrastructure
@@ -67,12 +68,6 @@ namespace Game.Code.Infrastructure
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Application.Quit();
-            }
-            
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                ChangeScene changeScene = FindFirstObjectByType<ChangeScene>();
-                changeScene.TransitionToScene("EndGame");
             }
         }
 

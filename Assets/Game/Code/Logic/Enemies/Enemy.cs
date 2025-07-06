@@ -1,4 +1,5 @@
 using Game.Code.Infrastructure;
+using Game.Code.Logic.UI;
 using UnityEngine;
 
 namespace Game.Code.Logic.Enemies
@@ -74,47 +75,65 @@ namespace Game.Code.Logic.Enemies
             {
                 currentHealth += currentArmor;
                 currentArmor = 0;
+
+                if (currentHealth <= 0)
+                {
+                    ChangeScene.Instance.TransitionToScene("EndGame");
+                }
             }
             
             DebuffDamageUse();
         }
 
-        public void TakeCard(CardType cardType, int baseValue, int additionalValue)
+        public bool TakeCard(CardType cardType, int baseValue, int additionalValue)
         {
             if (cardType is CardType.Attack3)
             {
-                TakeDamage(baseValue);
+                return TakeDamage(baseValue);
             }
-            else if (cardType is CardType.Attack6)
+
+            if (cardType is CardType.Attack6)
             {
-                TakeDamage(baseValue);
+                return TakeDamage(baseValue);
             }
-            else if (cardType is CardType.Attack1014)
+
+            if (cardType is CardType.Attack1014)
             {
-                TakeDamage(_gameplay.CurrentStamina >= 8 ? additionalValue : baseValue);
+                return TakeDamage(_gameplay.CurrentStamina >= 8 ? additionalValue : baseValue);
             }
-            else if (cardType is CardType.Debuff1)
+
+            if (cardType is CardType.Debuff1)
             {
                 _debuffDamage = baseValue;
+                return false;
             }
-            else if (cardType is CardType.Debuff2)
+
+            if (cardType is CardType.Debuff2)
             {
                 _healDebuff = true;
+                return false;
             }
-            else if (cardType is CardType.Debuff3)
+
+            if (cardType is CardType.Debuff3)
             {
                 _debuffDamage = baseValue;
+                return false;
             }
+
+            return false;
         }
 
-        private void TakeDamage(int damage)
+        private bool TakeDamage(int damage)
         {
             _currentHealth -= damage;
            
             if (_currentHealth <= 0)
             {
                 Die();
+                return true;
             }
+            
+            return false;
         }
 
         private void DebuffDamageUse()
@@ -128,7 +147,20 @@ namespace Game.Code.Logic.Enemies
 
         private void Die()
         {
-            _gameplay.RunRound(Round.Round2);
+            _gameplay.FightFinish();
+            
+            if (enemyType is EnemyType.First)
+            {
+                _gameplay.RunRound(Round.Round2);
+            }
+            else if (enemyType is EnemyType.Second)
+            {
+                _gameplay.RunRound(Round.Round3);
+            }
+            else if (enemyType is EnemyType.Third)
+            {
+                ChangeScene.Instance.TransitionToScene("WinGame");
+            }
         }
     }
 }
