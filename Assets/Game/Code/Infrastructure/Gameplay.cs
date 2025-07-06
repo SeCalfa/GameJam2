@@ -122,7 +122,7 @@ namespace Game.Code.Infrastructure
         {
             if (cardType is CardType.Defence5 or CardType.Defence8 or CardType.Defence12 or CardType.Debuff3)
             {
-                _currentArmor += baseValue;
+                _currentArmor = baseValue;
             }
             else if (cardType is CardType.Buff1)
             {

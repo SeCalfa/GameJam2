@@ -10,7 +10,7 @@ namespace Game.Code.Logic.Card
         [SerializeField] private CardType cardType;
         [SerializeField] private int cardValueBase;
         [SerializeField] private int cardValueAdditional;
-        [SerializeField][Range(1, 3)] private int staminaCost = 1;
+        [SerializeField][Range(1, 4)] private int staminaCost = 1;
         
         private Gameplay _gameplay;
         

@@ -67,7 +67,7 @@ namespace Game.Code.Infrastructure
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Application.Quit();
+                ChangeScene.Instance.TransitionToScene("MainMenu");
             }
         }
 

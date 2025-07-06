@@ -390,7 +390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardType: 3
-  cardValueBase: 5
+  cardValueBase: 4
   cardValueAdditional: 0
   staminaCost: 1
 --- !u!1 &5701106025437294021
@@ -533,7 +533,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gain 5 shield.
+  m_text: Gain 4 shield.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 206eb88d6a6b745468b9ef615da9f604, type: 2}
   m_sharedMaterial: {fileID: -6180916595599006588, guid: 206eb88d6a6b745468b9ef615da9f604, type: 2}

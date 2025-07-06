@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: 4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 206eb88d6a6b745468b9ef615da9f604, type: 2}
   m_sharedMaterial: {fileID: -6180916595599006588, guid: 206eb88d6a6b745468b9ef615da9f604, type: 2}
@@ -362,7 +362,7 @@ MonoBehaviour:
   cardType: 6
   cardValueBase: 5
   cardValueAdditional: 0
-  staminaCost: 3
+  staminaCost: 4
 --- !u!1 &5877062554079164987
 GameObject:
   m_ObjectHideFlags: 0
