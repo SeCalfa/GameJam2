@@ -4,8 +4,8 @@ namespace Game.Code.Logic.Card
 {
     public class CardDropZone : MonoBehaviour
     {
-        private readonly Vector2 _zonePosition = new(0, 2.5f);
-        private readonly Vector2 _zoneSize = new(11.5f, 5f);
+        private readonly Vector2 _zonePosition = new(0, 1.75f);
+        private readonly Vector2 _zoneSize = new(10f, 6.5f);
         
         public static CardDropZone Instance;
 
