@@ -68,20 +68,16 @@ namespace Game.Code.Logic.Card
         private void OnMouseUp()
         {
             _isDragging = false;
-            
+
             if (_isOnTable && _parentCardBend != null)
             {
-                var dropZone = FindFirstObjectByType<CardDropZone>();
-                if (dropZone != null && UseCard())
+                var cardUsed = CardDropZone.Instance.IsCardInZone(this) && UseCard();
+                if (cardUsed)
                 {
-                    var wasDestroyed = dropZone.OnCardReleased(this);
-                    if (wasDestroyed)
-                    {
-                        return; // Card was destroyed, don't continue
-                    }
+                    DestroyCard();
+                    return;
                 }
-                
-                // Card wasn't destroyed, return to hand
+
                 ReturnToHand();
             }
             else if (!_isOnTable)

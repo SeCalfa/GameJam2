@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Game.Code.Logic.Enemy
@@ -12,8 +13,7 @@ namespace Game.Code.Logic.Enemy
 
     public class Interactions : MonoBehaviour
     {
-        [Header("Enemy Selection (1-3)")]
-        [SerializeField] private int enemyType = 1;
+        [SerializeField] private EnemyType enemyType;
         
         private int enemy1MaxHealth = 40;
         private int enemy1AttackDamage = 2;
@@ -45,22 +45,20 @@ namespace Game.Code.Logic.Enemy
         {
             switch (enemyType)
             {
-                case 1:
+                case EnemyType.First:
                     maxHealth = enemy1MaxHealth;
                     attackDamage = enemy1AttackDamage;
                     break;
-                case 2:
+                case EnemyType.Second:
                     maxHealth = enemy2MaxHealth;
                     attackDamage = enemy2AttackDamage;
                     break;
-                case 3:
+                case EnemyType.Third:
                     maxHealth = enemy3MaxHealth;
                     attackDamage = enemy3AttackDamage;
                     break;
                 default:
-                    maxHealth = enemy1MaxHealth;
-                    attackDamage = enemy1AttackDamage;
-                    break;
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

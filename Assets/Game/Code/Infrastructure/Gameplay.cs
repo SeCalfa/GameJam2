@@ -3,6 +3,7 @@ using Game.Code.Infrastructure.GameObjectsLocator;
 using Game.Code.Infrastructure.SO.Prefabs;
 using Game.Code.Infrastructure.SO.Rounds;
 using Game.Code.Logic.Card;
+using Game.Code.Logic.Enemy;
 using Game.Code.Logic.UI.Gameplay;
 using UnityEngine;
 
@@ -78,6 +79,11 @@ namespace Game.Code.Infrastructure
         {
             var gameplayHud = _container.GetGameObjectByName<GameplayHud>(Constants.GameplayHUD);
             gameplayHud.ToggleStamina(false);
+            
+            // Enemy action
+            var enemy = _container.GetGameObjectByName<Interactions>(Constants.Enemy);
+            
+            TurnStart(1);
         }
 
         public void UpdateStamina()

@@ -29,8 +29,6 @@ namespace Game.Code.Logic.Card
         private void Awake()
         {
             InitializeCentralAnchor();
-            // SpawnInitialCards();
-            CreateDropZone();
         }
 
         private void Update()
@@ -55,24 +53,6 @@ namespace Game.Code.Logic.Card
                 anchorObject.transform.localPosition = new Vector3(0, -3, 0);
                 centralAnchor = anchorObject.transform;
             }
-        }
-
-        private void SpawnInitialCards()
-        {
-            if (cardPrefab == null)
-            {
-                return;
-            }
-
-            for (var i = 0; i < 6; i++)
-            {
-                var newCard = Instantiate(cardPrefab, transform);
-                newCard.name = $"Card_{i + 1}";
-
-                SetupCard(newCard, i);
-            }
-
-            _isArranging = true;
         }
 
         private void SetupCard(GameObject newCard, int index)
@@ -261,12 +241,6 @@ namespace Game.Code.Logic.Card
         public Vector2 GetHandPosition()
         {
             return centralAnchor != null ? centralAnchor.position : transform.position;
-        }
-
-        private void CreateDropZone()
-        {
-            var dropZoneObject = new GameObject("CardDropZone");
-            dropZoneObject.AddComponent<CardDropZone>();
         }
     }
 }

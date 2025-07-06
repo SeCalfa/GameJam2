@@ -559,7 +559,7 @@ MonoBehaviour:
   cardType: 0
   cardValueBase: 0
   cardValueAdditional: 0
-  staminaCost: 2
+  staminaCost: 3
 --- !u!1 &5838533656090466937
 GameObject:
   m_ObjectHideFlags: 0

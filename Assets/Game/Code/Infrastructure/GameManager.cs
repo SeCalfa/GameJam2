@@ -68,11 +68,6 @@ namespace Game.Code.Infrastructure
             {
                 Application.Quit();
             }
-
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                _gameplay.TurnStart(1);
-            }
             
             if (Input.GetKeyDown(KeyCode.T))
             {

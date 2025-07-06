@@ -663,4 +663,4 @@ MonoBehaviour:
   cardType: 0
   cardValueBase: 0
   cardValueAdditional: 0
-  staminaCost: 1
+  staminaCost: 3
