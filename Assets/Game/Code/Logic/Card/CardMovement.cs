@@ -12,9 +12,12 @@ namespace Game.Code.Logic.Card
         private bool _isOnTable;
         private bool _isDragging;
         private CardBend _parentCardBend;
+        private Canvas[] _cardCanvases;
+        private int[] _originalSortingOrders;
 
         private const float ReturnSpeed = 10f;
-        private const float DragScale = 1.4f;
+        private const float DragScale = 1.3f;
+        private const int DragSortingOrderBoost = 100;
 
         protected virtual void Awake()
         {
@@ -22,6 +25,12 @@ namespace Game.Code.Logic.Card
             _startRotation = transform.rotation;
             _startScale = transform.localScale;
             _parentCardBend = GetComponentInParent<CardBend>();
+            _cardCanvases = GetComponentsInChildren<Canvas>();
+            _originalSortingOrders = new int[_cardCanvases.Length];
+            for (int i = 0; i < _cardCanvases.Length; i++)
+            {
+                _originalSortingOrders[i] = _cardCanvases[i].sortingOrder;
+            }
         }
 
         protected virtual void Update()
@@ -50,6 +59,12 @@ namespace Game.Code.Logic.Card
                 _isDragging = true;
                 transform.localScale = _startScale * DragScale;
                 
+                // Boost sorting order when dragging starts
+                for (int i = 0; i < _cardCanvases.Length; i++)
+                {
+                    _cardCanvases[i].sortingOrder += DragSortingOrderBoost;
+                }
+                
                 if (_parentCardBend != null && !_isOnTable)
                 {
                     _parentCardBend.OnCardPulledOut(gameObject);
@@ -75,6 +90,12 @@ namespace Game.Code.Logic.Card
         private void OnMouseUp()
         {
             _isDragging = false;
+            
+            // Reset sorting order when dragging ends
+            for (int i = 0; i < _cardCanvases.Length; i++)
+            {
+                _cardCanvases[i].sortingOrder = _originalSortingOrders[i];
+            }
             
             // Return card to normal scale when releasing
             transform.localScale = _startScale;

@@ -9,13 +9,13 @@ namespace Game.Code.Logic.Enemies
         [SerializeField] private EnemyType enemyType;
 
         private const int Enemy1MaxHealth = 40;
-        private const int Enemy1AttackDamage = 2;
+        private const int Enemy1AttackDamage = 3;
         
         private const int Enemy2MaxHealth = 60;
-        private const int Enemy2AttackDamage = 3;
+        private const int Enemy2AttackDamage = 4;
 
         private const int Enemy3MaxHealth = 90;
-        private const int Enemy3AttackDamage = 4;
+        private const int Enemy3AttackDamage = 5;
 
         private int _attackDamage, _maxHealth, _currentHealth;
         private Gameplay _gameplay;
