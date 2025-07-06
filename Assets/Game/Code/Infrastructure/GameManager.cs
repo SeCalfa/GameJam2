@@ -1,6 +1,7 @@
 using Game.Code.Infrastructure.GameObjectsLocator;
 using Game.Code.Infrastructure.SO.Prefabs;
 using Game.Code.Infrastructure.SO.Rounds;
+using Game.Code.Logic.UI;
 using UnityEngine;
 
 namespace Game.Code.Infrastructure
